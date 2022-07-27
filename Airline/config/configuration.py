@@ -1,21 +1,12 @@
 from re import A
 from Airline.entity.config_entity import DataIngestionConfig,DataTransformationConfig,DataValidationConfig,ModelEvaluationConfig,ModelPusherConfig,ModelTrainerConfig,TrainingPipelineConfig
-import yaml
+from Airline.util.util import read_yaml_file
 from Airline.logging import logging
 import sys,os
 from Airline.constant import *
 from Airline.exception import AirlineException
 from Airline.entity.artifact_entity import DataIngestionArtifact
-def read_yaml_file(file_path:str)->dict:
-    """
-    Reads a YAML file and returns the contents as a dictionary.
-    file_path: str
-    """
-    try:
-        with open(file_path, 'rb') as yaml_file:
-            return yaml.safe_load(yaml_file)
-    except Exception as e:
-        raise AirlineException(e,sys) from e
+
 
 class Configuartion:
 
@@ -28,7 +19,7 @@ class Configuartion:
             self.training_pipeline_config = self.get_training_pipeline_config()
             self.time_stamp = current_time_stamp
         except Exception as e:
-            raise AirlineException(e,sys) from e
+            raise AirlineException(e,sys)
 
 
     def get_data_ingestion_config(self) ->DataIngestionConfig:
@@ -74,7 +65,7 @@ class Configuartion:
             logging.info(f"Data Ingestion config: {data_ingestion_config}")
             return data_ingestion_config
         except Exception as e:
-            raise AirlineException(e,sys) from e
+            raise AirlineException(e,sys)
 
 
     def get_training_pipeline_config(self) ->TrainingPipelineConfig:
@@ -89,4 +80,4 @@ class Configuartion:
             logging.info(f"Training pipleine config: {training_pipeline_config}")
             return training_pipeline_config
         except Exception as e:
-            raise AirlineException(e,sys) from e
+            raise AirlineException(e,sys)
